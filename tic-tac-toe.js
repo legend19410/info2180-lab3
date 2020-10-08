@@ -85,10 +85,6 @@ document.addEventListener('DOMContentLoaded', function (){
         
     });
 
-    boardChildern.forEach((element)=>{
-        console.log(element.getAttribute("id"));
-    });
-
     newGameBtn.addEventListener('click',()=>{
         turn = 0;
         winStatus = false;
