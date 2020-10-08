@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', function (){
 
     boardChildern.forEach((box, index) => {
         box.addEventListener('click',function(){
+            let id = box.getAttribute('id');
             if(turn === 0){
-                let id = box.getAttribute('id');
                 for(let state of gameState){
                     if (state.includes(id)){
                         box.classList.add("X");
@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function (){
                     }
                 }
             }else{
-                let id = box.getAttribute('id');
                 for(let state of gameState){
                     if (state.includes(id)){
                         box.classList.add("O");
@@ -35,6 +34,13 @@ document.addEventListener('DOMContentLoaded', function (){
                     }
                 }
             }
+        });
+
+        box.addEventListener('mouseover', ()=>{
+            box.classList.add("hover");
+        });
+        box.addEventListener('mouseleave', ()=>{
+            box.classList.remove('hover');
         });
         
         box.classList.add('square');
