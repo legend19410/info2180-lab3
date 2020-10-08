@@ -2,7 +2,9 @@ document.addEventListener('DOMContentLoaded', function (){
     const board = document.getElementById('board');
     const boardChildern = Array.from(board.children);
     const statusMessage = document.getElementById('status');
+    const newGameBtn = document.querySelector('.btn');
     let turn = 0;
+    let winStatus = false;
     let gameState = [['0', '1', '2'], 
                      ['3', '4', '5'],
                      ['6', '7', '8']];
@@ -10,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function (){
     boardChildern.forEach((box, index) => {
         box.addEventListener('click',function(){
             let id = box.getAttribute('id');
-            if(turn === 0){
+            if(turn === 0 && !winStatus){
                 for(let state of gameState){
                     if (state.includes(id)){
                         box.classList.add("X");
@@ -22,11 +24,12 @@ document.addEventListener('DOMContentLoaded', function (){
                         if(isAWinner(gameState,'X')){
                             statusMessage.innerHTML = "Congratulations! X is the Winner!";
                             statusMessage.classList.add("you-won");
+                            winStatus = true;
                         }
                         break;
                     }
                 }
-            }else{
+            }else if(turn === 1 && !winStatus){
                 for(let state of gameState){
                     if (state.includes(id)){
                         box.classList.add("O");
@@ -38,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function (){
                         if(isAWinner(gameState,'O')){
                             statusMessage.innerHTML = "Congratulations! O is the Winner!";
                             statusMessage.classList.add("you-won");
+                            winStatus = true;
                         }
                         
                         break;
@@ -83,6 +87,21 @@ document.addEventListener('DOMContentLoaded', function (){
 
     boardChildern.forEach((element)=>{
         console.log(element.getAttribute("id"));
+    });
+
+    newGameBtn.addEventListener('click',()=>{
+        turn = 0;
+        winStatus = false;
+        gameState = [['0', '1', '2'], 
+                     ['3', '4', '5'],
+                     ['6', '7', '8']];
+        statusMessage.innerHTML = "Move your mouse over a square and click to play an X or an O.";
+        statusMessage.classList.remove('you-won');
+        boardChildern.forEach((box)=>{
+            box.classList.remove('X');
+            box.classList.remove('O');
+            box.textContent = '';
+        }); 
     });
 
     
